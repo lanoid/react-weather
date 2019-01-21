@@ -9,6 +9,7 @@ let weatherService = new Promise(function(resolve, reject) {
             return new Request(`${api}?lat=${position.coords.latitude}&lon=${position.coords.longitude}&APPID=${apiKey}`);
         })
         .then((request)=>{
+            console.warn('weather!');
             fetch(request).then((response) => {
                 resolve(response.json());
             }).catch((error) => {
