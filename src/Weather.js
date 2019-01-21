@@ -19,14 +19,10 @@ class Weather extends Component {
     }
 
     getWeather(){
-        console.warn(this.setState, 'weathery');
         weatherService.then(weatherReport => {
-            console.log(weatherReport.weather[0].icon);
-
             this.setState({
                 name: weatherReport.name,
-                weatherMain: weatherReport.weather[0].main,
-                weatherDescription: weatherReport.weather[0].description,
+                weatherDescription: weatherReport.weather.map(weather => {return weather.description}),
                 weatherIcon: weatherReport.weather[0].id,
                 weatherTemp: parseInt(weatherReport.main.temp - 273, 10),
                 promiseRes: true
@@ -37,7 +33,6 @@ class Weather extends Component {
     }
 
     weatherButton(){
-        console.warn('clicky!');
         this.setState({weatherRequest:true});
         this.getWeather();
     }
@@ -62,7 +57,7 @@ class Weather extends Component {
             {this.state.weatherRequest && this.state.promiseRes &&
                 <div className="table-cell align-middle">
                     <WeatherIcons name="owm" iconId={this.state.weatherIcon} />
-                    <h1>The Weather in {this.state.name}: {this.state.weatherMain}, {this.state.weatherDescription} and the temperature is {this.state.weatherTemp}˚C</h1>
+                    <h1>The weather in {this.state.name} is {this.state.weatherDescription} and the temperature is {this.state.weatherTemp}˚C</h1>
                 </div>
             }
             

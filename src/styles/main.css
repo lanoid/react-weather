@@ -9,6 +9,7 @@
 body {
     font-family: var(--font-family);
     text-align: center;
+    color: darkslategrey;
 }
 
 #root {
@@ -21,5 +22,5 @@ body {
 }
 
 i.wi {
-    font-size: var(--h1);
+    font-size: 10rem;
 }
