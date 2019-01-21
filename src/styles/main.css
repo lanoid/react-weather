@@ -1,0 +1,21 @@
+@import "basscss";
+@import "basscss-btn";
+@import "basscss-btn-primary";
+
+:root {
+    --font-family: 'Helvetica';
+}
+
+body {
+    font-family: var(--font-family);
+    text-align: center;
+}
+
+#root {
+    height: 100vh;
+}
+
+.weather {
+    text-align: center;
+    height: 100vh;
+}
