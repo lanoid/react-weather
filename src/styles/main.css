@@ -21,6 +21,6 @@ body {
     height: 100vh;
 }
 
-i.wi {
-    font-size: 10rem;
+.weather-icon {
+    max-width: 200px;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import weatherService from './services/weatherService';
-import WeatherIcons from 'react-icons-weather';
+import WeatherIcon from 'react-open-weather-icons';
 
 class Weather extends Component {
     constructor(){
@@ -23,7 +23,7 @@ class Weather extends Component {
             this.setState({
                 name: weatherReport.name,
                 weatherDescription: weatherReport.weather.map(weather => {return weather.description}),
-                weatherIcon: weatherReport.weather[0].id,
+                weatherIcon: weatherReport.weather[0].icon,
                 weatherTemp: parseInt(weatherReport.main.temp - 273, 10),
                 promiseRes: true
             })
@@ -56,8 +56,8 @@ class Weather extends Component {
             }
             {this.state.weatherRequest && this.state.promiseRes &&
                 <div className="table-cell align-middle">
-                    <WeatherIcons name="owm" iconId={this.state.weatherIcon} />
-                    <h1>The weather in {this.state.name} is {this.state.weatherDescription} and the temperature is {this.state.weatherTemp}˚C</h1>
+                    <WeatherIcon name={this.state.weatherIcon} className="weather-icon" />
+                    <h1>The weather in {this.state.name}: {this.state.weatherDescription} and the temperature is {this.state.weatherTemp}˚C</h1>
                 </div>
             }
             
