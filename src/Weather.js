@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import weatherService from './services/weatherService';
 import WeatherIcon from 'react-open-weather-icons';
+import WeatherItem from './WeatherItem';
 
 class Weather extends Component {
     constructor(){
@@ -8,7 +9,7 @@ class Weather extends Component {
         this.state = {
             location : '',
             weatherMain: '',
-            weatherDescription: '',
+            weatherDescriptions: [],
             weatherTemp: '',
             weatherCode: '',
             promiseRes: false,
@@ -22,7 +23,7 @@ class Weather extends Component {
         weatherService.then(weatherReport => {
             this.setState({
                 name: weatherReport.name,
-                weatherDescription: weatherReport.weather.map(weather => {return weather.description}),
+                weatherDescriptions: weatherReport.weather,
                 weatherIcon: weatherReport.weather[0].icon,
                 weatherTemp: parseInt(weatherReport.main.temp - 273, 10),
                 promiseRes: true
@@ -46,18 +47,20 @@ class Weather extends Component {
                 </div>
             }
             {this.state.weatherRequest && !this.state.promiseRes && !this.state.weatherError &&
-                <span className="h1 table-cell align-middle">Finding your weather…</span>
+                <h1 className="table-cell align-middle">Finding your weather…</h1>
             }
             {this.state.weatherRequest && !this.state.promiseRes && this.state.weatherError &&
                 <div className="table-cell align-middle">
-                    <span className="h1">Sorry, we couldn’t retrieve your weather at this time.</span>
+                    <h1 className="h1">Sorry, we couldn’t retrieve your weather at this time.</h1>
                     <button onClick={this.weatherButton} className="btn btn-primary">Try again?</button>
                 </div>
             }
             {this.state.weatherRequest && this.state.promiseRes &&
                 <div className="table-cell align-middle">
                     <WeatherIcon name={this.state.weatherIcon} className="weather-icon" />
-                    <h1>The weather in {this.state.name}: {this.state.weatherDescription} and the temperature is {this.state.weatherTemp}˚C</h1>
+                    <h1>The weather in {this.state.name}: {
+                            this.state.weatherDescriptions.map(weatherItem => {return <WeatherItem weatherItem={weatherItem.description} /> })
+                        } the temperature is {this.state.weatherTemp}˚C</h1>
                 </div>
             }
             
